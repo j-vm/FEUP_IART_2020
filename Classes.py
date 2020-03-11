@@ -5,7 +5,7 @@ class Photo:
               self.id = id
               self.Horizontal = True if splitInfo[0] == "H" else False
               self.tags = set(splitInfo[2::])
-              print(self.tags)
+              #print(self.tags)
 
 class Slide:
        def __init__(self, photo):

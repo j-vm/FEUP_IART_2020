@@ -20,7 +20,7 @@ def loadFile(*args):
 
 
 
-def fileLoaded():
+def fileLoaded(*args):
     ttk.Label(mainframe, text="LOADED!").grid(column=1, row=8, sticky=(W, E))
     ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=9, sticky=W)
     ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=2, row=9, sticky=W)
@@ -32,7 +32,18 @@ def fileLoaded():
 
 
 def solveRand(*args):
-    return 1
+    
+    slides = []
+    for photo in photos:
+
+        if len(slides)==0:
+            slides.append(Slide(photo))  
+        elif not slides[-1].Horizontal and not photo.Horizontal:
+            slides[-1].addVertical(photo)
+        else:
+            slides.append(Slide(photo))
+
+    return slides
 
 def solveGreedy(*args):
     return 1
@@ -61,7 +72,8 @@ root.rowconfigure(0, weight=1)
 ttk.Label(mainframe, text="Input file path").grid(column=1, row=3, sticky=(W, E))
 ttk.Label(mainframe, text=filename).grid(column=1, row=4, sticky=(W, E))
 
-ttk.Button(mainframe, text="Load File", command=loadFile).grid(column=4, row=3, sticky=W)
+photos = []
+photos.append(ttk.Button(mainframe, text="Load File", command=loadFile).grid(column=4, row=3, sticky=W))
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
