@@ -4,13 +4,7 @@ from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
 import score
 
-<<<<<<< HEAD
-
-def calculate(*args):
-
-=======
 def loadFile(*args):
->>>>>>> 46cfb8954e80a199cac41cdc31a8a869f7fe691d
     f = open(filename, 'r')
 
     photos = []
@@ -26,8 +20,6 @@ def loadFile(*args):
 
 
 
-<<<<<<< HEAD
-=======
 def fileLoaded(*args):
     ttk.Label(mainframe, text="LOADED!").grid(column=1, row=8, sticky=(W, E))
     ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=9, sticky=W)
@@ -67,7 +59,6 @@ def solveSimulatedAnneling(*args):
 
 
 
->>>>>>> 46cfb8954e80a199cac41cdc31a8a869f7fe691d
 root = Tk()
 
 root.title("Google Hashcode 2019 solver")
