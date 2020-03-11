@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 
 def calculate(*args):
-    return 1
+    print(args)
 
 
 root = Tk()
