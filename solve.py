@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
-import score
+from objective import ObjectiveFunction
 
 def loadFile(*args):
     f = open(filename, 'r')
@@ -15,23 +15,23 @@ def loadFile(*args):
             photos.append(Photo(lineNumber-1, line))
         lineNumber += 1
     
-    fileLoaded()
+    #fileLoaded()
+
+
+
+    slides = solveRand(photos)
+
+    print(ObjectiveFunction(slides))
+    
     return photos
 
 
 
-def fileLoaded(*args):
-    ttk.Label(mainframe, text="LOADED!").grid(column=1, row=8, sticky=(W, E))
-    ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=9, sticky=W)
-    ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=2, row=9, sticky=W)
-    ttk.Button(mainframe, text="Genetic Algorithm", command=solveGeneticAlgorithm).grid(column=3, row=9, sticky=W)
-    ttk.Button(mainframe, text="Simulated Anneling", command=solveSimulatedAnneling).grid(column=4, row=9, sticky=W)
-    ttk.Button(mainframe, text="Hill Climbing", command=solveHillClimbing).grid(column=5, row=9, sticky=W)
 
 
 
 
-def solveRand(*args):
+def solveRand(photos):
     
     slides = []
     for photo in photos:
@@ -57,6 +57,13 @@ def solveGeneticAlgorithm(*args):
 def solveSimulatedAnneling(*args):
     return 1
 
+def fileLoaded(*args):
+    ttk.Label(mainframe, text="LOADED!").grid(column=1, row=8, sticky=(W, E))
+    ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=9, sticky=W)
+    ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=2, row=9, sticky=W)
+    ttk.Button(mainframe, text="Genetic Algorithm", command=solveGeneticAlgorithm).grid(column=3, row=9, sticky=W)
+    ttk.Button(mainframe, text="Simulated Anneling", command=solveSimulatedAnneling).grid(column=4, row=9, sticky=W)
+    ttk.Button(mainframe, text="Hill Climbing", command=solveHillClimbing).grid(column=5, row=9, sticky=W)
 
 
 root = Tk()
