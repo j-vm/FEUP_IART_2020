@@ -15,18 +15,18 @@ def loadFile(*args):
             photos.append(Photo(lineNumber-1, line))
         lineNumber += 1
     
-    fileLoaded()
+    
     return photos
 
 
 
 def fileLoaded(*args):
     ttk.Label(mainframe, text="LOADED!").grid(column=1, row=8, sticky=(W, E))
-    ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=9, sticky=W)
-    ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=2, row=9, sticky=W)
-    ttk.Button(mainframe, text="Genetic Algorithm", command=solveGeneticAlgorithm).grid(column=3, row=9, sticky=W)
-    ttk.Button(mainframe, text="Simulated Anneling", command=solveSimulatedAnneling).grid(column=4, row=9, sticky=W)
-    ttk.Button(mainframe, text="Hill Climbing", command=solveHillClimbing).grid(column=5, row=9, sticky=W)
+    ttk.Button(mainframe, text="Random Solution", command=solveRand).grid(column=1, row=14, padx=(50, 10), sticky=W)
+    ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=1, row=15, padx=(50, 10), sticky=W)
+    ttk.Button(mainframe, text="Genetic Algorithm", command=solveGeneticAlgorithm).grid(column=1, row=16, padx=(50, 10), sticky=W)
+    ttk.Button(mainframe, text="Simulated Anneling", command=solveSimulatedAnneling).grid(column=1, row=17, padx=(50, 10), sticky=W)
+    ttk.Button(mainframe, text="Hill Climbing", command=solveHillClimbing).grid(column=1, row=18, padx=(50, 10), sticky=W)
 
 
 
@@ -46,7 +46,9 @@ def solveRand(*args):
     return slides
 
 def solveGreedy(*args):
-    return 1
+    for photo in photos:
+        print(photo)
+    return 0
 
 def solveHillClimbing(*args):
     return 1
@@ -73,8 +75,13 @@ ttk.Label(mainframe, text="Input file path").grid(column=1, row=3, sticky=(W, E)
 ttk.Label(mainframe, text=filename).grid(column=1, row=4, sticky=(W, E))
 
 photos = []
-photos.append(ttk.Button(mainframe, text="Load File", command=loadFile).grid(column=4, row=3, sticky=W))
+photos = ttk.Button(mainframe, text="Load File", command=loadFile)
+for photo in photos:
+    print(photo)
+photos.grid(column=4, row=3, sticky=W)
 
+
+fileLoaded()
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
 root.mainloop()
