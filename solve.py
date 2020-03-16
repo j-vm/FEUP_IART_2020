@@ -4,6 +4,10 @@ from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
 from objective import ObjectiveFunction
 
+
+from FEUP_IART_2020.greedy import generate_slides
+
+
 def loadFile(*args):
     f = open(filename, 'r')
 
@@ -13,21 +17,20 @@ def loadFile(*args):
     for line in f:
         if (lineNumber != 0):
             photos.append(Photo(lineNumber-1, line))
+
         lineNumber += 1
-    
+
+
+
+    generate_slides(photos)
+
     #fileLoaded()
 
+    #slides = solveRand(photos.id, photos.tags)
 
-
-    slides = solveRand(photos)
-
-    print(ObjectiveFunction(slides))
+   # print(ObjectiveFunction(slides))
     
     return photos
-
-
-
-
 
 
 
@@ -45,7 +48,7 @@ def solveRand(photos):
 
     return slides
 
-def solveGreedy(*args):
+def solveGreedy(*Args):
     return 1
 
 def solveHillClimbing(*args):
