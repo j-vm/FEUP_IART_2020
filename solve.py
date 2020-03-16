@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
+from greedy import *
 from objective import ObjectiveFunction
 
 
@@ -20,16 +21,8 @@ def loadFile(*args):
 
         lineNumber += 1
 
-
-
     generate_slides(photos)
 
-    #fileLoaded()
-
-    #slides = solveRand(photos.id, photos.tags)
-
-   # print(ObjectiveFunction(slides))
-    
     return photos
 
 
@@ -48,8 +41,13 @@ def solveRand(photos):
 
     return slides
 
-def solveGreedy(*Args):
-    return 1
+
+
+def solveGreedy(*args):
+    for photo in photos:
+        print(photo)
+    return 0
+
 
 def solveHillClimbing(*args):
     return 1
@@ -81,6 +79,7 @@ root.rowconfigure(0, weight=1)
 
 ttk.Label(mainframe, text="Input file path").grid(column=1, row=3, sticky=(W, E))
 ttk.Label(mainframe, text=filename).grid(column=1, row=4, sticky=(W, E))
+
 
 photos = []
 photos.append(ttk.Button(mainframe, text="Load File", command=loadFile).grid(column=4, row=3, sticky=W))

@@ -19,15 +19,16 @@ def generate_slides(photos):
         else:
             vertical_photos.append(photo)
 
-    #vphotos_paired = pair_vPhotos(vertical_photos)
-    sort_vPhotos(vertical_photos)
+    sortedvPhotos = sort_vertical_photos(vertical_photos)
 
-    #slides.append(vphotos_paired)
+    vertical_slides = pair_vPhotos(sortedvPhotos)
 
-    #for s in slides:
-    #    print(s.tags)
+    for vs in vertical_slides:
+        slides.append(vs)
 
-    #print(ObjectiveFunction(slides))
+
+    print("Pontos:" , ObjectiveFunction(slides))
+
     return 1
 
 #return slides with possible combination of vertical photos
@@ -40,31 +41,21 @@ def pair_vPhotos(vPhotos):
     elif length == 2:
         s = Slide(vPhotos[0])
         s.addVertical(vPhotos[1])
-        return s
-
+        return [s]
     elif ((length % 2) == 0):
-        for idx in range(length):
+        l = length//2
+        for idx in range(l): #match primeiro com o ultimo
                s1 = Slide(vPhotos[idx])
-               s1.addVertical(vPhotos[idx+1])
+               s1.addVertical(vPhotos[length-idx-1])
                slides.append(s1)
-    else:
-        print("One pic will be left out")
-
+    else: #eliminar a foto que esta exatamente no meio; match primeiro com o ultimo
+        print("One pic will be left out.")
     return slides
 
 
-def byLengthTags(photo):
-    return len(photo.tags)
 
-#sort vertical photos by its number of tags
-# group the largest with the smallest and the second largest with the second smallest
-# -> every slide with the same number of tags
-def sort_vPhotos(vPhotos):
-    for p in vPhotos:
-        print(p.id)
-    sorted = vPhotos.sort(byLengthTags)
+def sort_vertical_photos(vPhotos):
+    v_sorted = sorted(vPhotos, key=lambda x: x.nr_tags, reverse=False) #ordenar por ordem crescente de nr de tags
+    return v_sorted
 
-    for p1 in sorted:
-        print(p1.id)
 
-    return sorted
