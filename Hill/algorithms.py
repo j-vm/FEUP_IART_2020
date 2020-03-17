@@ -29,7 +29,7 @@ def objective_function(slide1, slide2):
 
 
 def hill(photos):
-    times = 10000
+    cycles = 100000
     best_score = 0
     temp_score = 0
     #start random solution
@@ -43,7 +43,8 @@ def hill(photos):
         slides[i].score = objective_function(slides[i], slides[i+1])
         best_score += slides[i].score
     #searches for the optimal solution
-    while times>0:
+    
+    while cycles>0:
         first_index = random.randint(0, length - 2)
         second_index = random.randint(0, length - 2)
         
@@ -54,24 +55,21 @@ def hill(photos):
         temp_slide2 = slides[second_index]
 
         current_transitions = sum([objective_function(slides[first_index - 1], slides[first_index]), 
-                               objective_function(slides[first_index], slides[first_index + 1]),
-                               objective_function(slides[second_index - 1], slides[second_index]), 
-                               objective_function(slides[second_index], slides[second_index + 1])])
+                               objective_function(slides[first_index], slides[first_index + 1])])
 
         #new transitions with slides swaped
         temp_tansitions = sum([objective_function(slides[first_index - 1], slides[second_index]), 
-                               objective_function(slides[second_index], slides[first_index + 1]),
-                               objective_function(slides[second_index - 1], slides[first_index]), 
-                               objective_function(slides[first_index], slides[second_index + 1])])
+                               objective_function(slides[second_index], slides[first_index + 1])])
 
         if(temp_tansitions > current_transitions):
             #apply new configuration
             slides[first_index], slides[second_index] = slides[second_index], slides[first_index]
             #calculate new score
             best_score += temp_tansitions - current_transitions
-        times -= 1
-        if times % 100 == 0:
-            print(times, " cicles left")
+        cycles -= 1
+        if cycles % 100 == 0:
+            print(cycles, " cicles left")
+            print(best_score)
     print("best score: ", best_score)
 
     
