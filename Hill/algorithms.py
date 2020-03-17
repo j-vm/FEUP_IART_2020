@@ -29,42 +29,49 @@ def objective_function(slide1, slide2):
 
 
 def hill(photos):
-    times = 10
+    times = 10000
     best_score = 0
     temp_score = 0
     #start random solution
     slides = solveRand(photos)
     length = len(slides)
     temp_solution = slides
+    temp_slide1 = slides[0]
+    temp_slide2 = slides[1]
     #get the scores of first soluton
     for i in range(0, length -1):
         slides[i].score = objective_function(slides[i], slides[i+1])
         best_score += slides[i].score
     #searches for the optimal solution
     while times>0:
-        first_index = random.randint(0, length - 1)
-        second_index = random.randint(0, length - 1)
-        if first_index == second_index:
+        first_index = random.randint(0, length - 2)
+        second_index = random.randint(0, length - 2)
+        
+        if first_index == second_index or first_index == 0 or second_index == 0:
             continue
-        temp_solution[first_index], temp_solution[second_index] = temp_solution[second_index], temp_solution[first_index]
-        for i in range(0, length -1):
-            temp_solution[i].score = objective_function(temp_solution[i], temp_solution[i+1])
-            temp_score += temp_solution[i].score
-        if (temp_score >= best_score):
-            slides = temp_solution
-            best_score = temp_score
-            temp_score = 0
-        else:
-            temp_score = 0
+
+        temp_slide1 = slides[first_index]
+        temp_slide2 = slides[second_index]
+
+        current_transitions = sum([objective_function(slides[first_index - 1], slides[first_index]), 
+                               objective_function(slides[first_index], slides[first_index + 1]),
+                               objective_function(slides[second_index - 1], slides[second_index]), 
+                               objective_function(slides[second_index], slides[second_index + 1])])
+
+        #new transitions with slides swaped
+        temp_tansitions = sum([objective_function(slides[first_index - 1], slides[second_index]), 
+                               objective_function(slides[second_index], slides[first_index + 1]),
+                               objective_function(slides[second_index - 1], slides[first_index]), 
+                               objective_function(slides[first_index], slides[second_index + 1])])
+
+        if(temp_tansitions > current_transitions):
+            #apply new configuration
+            slides[first_index], slides[second_index] = slides[second_index], slides[first_index]
+            #calculate new score
+            best_score += temp_tansitions - current_transitions
         times -= 1
-        print(times, " seconds")
+        if times % 100 == 0:
+            print(times, " cicles left")
     print("best score: ", best_score)
-    '''
-    n = 0
-    for i in slides:
-        print("slide ", n)
-        print("score ", i.score)
-        print(i.tags)
-        n += 1
-    '''
+
     

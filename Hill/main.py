@@ -6,6 +6,7 @@ import time
 
 photos = load_file("./Hill/b_lovely_landscapes.txt")
 
+print("Loading file...")
 start_time = time.process_time()
 
 hill(photos)
