@@ -11,4 +11,4 @@ start_time = time.process_time()
 
 hill(photos)
 
-print(time.process_time() - start_time, "seconds")
+print(time.process_time() - start_time, " seconds of processor time")
