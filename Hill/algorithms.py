@@ -3,6 +3,7 @@ import random
 import operator
 import numpy as np
 from Classes import Photo, Slide 
+from objective import ObjectiveFunction
 
 def solveRand(photos):
     
@@ -47,7 +48,7 @@ def hill(photos):
     #get the scores of first soluton
     for i in range(0, length -1):
         slides[i].score = objective_function(slides[i], slides[i+1])
-        best_score += slides[i].score
+        best_score += ObjectiveFunction(slides)
     #searches for the optimal solution
         first_index = 1
         second_index = 0
