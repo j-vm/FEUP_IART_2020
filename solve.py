@@ -5,7 +5,9 @@ from Classes import Photo, Slide
 from objective import ObjectiveFunction
 
 
+
 from FEUP_IART_2020.simulated_annealing import simulated_annealing
+
 
 
 def loadFile(*args):

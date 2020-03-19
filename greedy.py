@@ -30,7 +30,7 @@ def generate_slides(photos):
 
     print("Pontos:" , ObjectiveFunction(slides))
 
-    return 1
+    return slides
 
 #return slides with possible combination of vertical photos
 def pair_vPhotos(vPhotos):
