@@ -6,8 +6,6 @@ from greedy import *
 from objective import ObjectiveFunction
 
 
-from FEUP_IART_2020.greedy import generate_slides
-
 
 def loadFile(*args):
     f = open(filename, 'r')
