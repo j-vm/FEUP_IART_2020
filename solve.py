@@ -2,11 +2,10 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
-from greedy import *
 from objective import ObjectiveFunction
 
 
-from FEUP_IART_2020.greedy import generate_slides
+from FEUP_IART_2020.simulated_annealing import simulated_annealing
 
 
 def loadFile(*args):
@@ -21,7 +20,7 @@ def loadFile(*args):
 
         lineNumber += 1
 
-    generate_slides(photos)
+    simulated_annealing(photos)
 
     return photos
 

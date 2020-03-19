@@ -1,6 +1,7 @@
 from Classes import Photo, Slide
 from objective import ObjectiveFunction
 
+
 def getTags(photos): #useful to get the tags of a slide
     tags = []
     for photo in photos:
