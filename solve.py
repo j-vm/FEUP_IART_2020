@@ -6,8 +6,7 @@ from objective import ObjectiveFunction
 
 
 
-from FEUP_IART_2020.simulated_annealing import simulated_annealing
-
+from genetic import *
 
 
 def loadFile(*args):
@@ -22,7 +21,7 @@ def loadFile(*args):
 
         lineNumber += 1
 
-    simulated_annealing(photos)
+    geneticStartup(photos)
 
     return photos
 
