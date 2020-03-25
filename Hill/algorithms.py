@@ -51,7 +51,6 @@ def hill(photos):
     #Lecture 6 slide 7 ponto 3: Hill climbing aleatório  
     first_index = 0
     while cycles > 0:
-        #first_index= random.randint(0, length - 2)
         second_index = first_index
         if first_index >= length - 2 or second_index > (length - 2):
                 continue

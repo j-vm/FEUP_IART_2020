@@ -30,32 +30,31 @@ def objective_function(slide1, slide2):
     return min(common, uncommon_slide1, uncommon_slide2)
 
 
-def hill(photos):
-    cycles = 50000
+def new_hill(photos, cycles):
     best_score = 0
-    vizinhanca = []
-    tamanhao_vizinhanca = 10 
+    first_index = 0
+    second_index = 0
     #start random solution
     slides = solveRand(photos)
+    new_slides = sorted(slides, key=lambda slide: slide.taglength, reverse=True)
+    slides = new_slides
     length = len(slides)
-
     #get the scores of first soluton
     for i in range(0, length -1):
         slides[i].score = objective_function(slides[i], slides[i+1])
         best_score += slides[i].score
-
-    current_index = 0
-
+    #searches for the optimal solution
+    #
     while cycles > 0:
-        #get vizinhanca
-        for slide in slides:
-            if slide 
-      #  second_index = random.randint(first_index, first_index + 10)
+       # first_index = random.randint(0, length - 2)
+        second_index = random.randint(first_index -50, first_index + 50)
         if first_index >= length - 2:
             first_index = 1
+        if second_index > (length - 2) or second_index < 0:
             continue
-        if second_index > (length - 2):
-            continue
+
+        temp_slide1 = slides[first_index]
+        temp_slide2 = slides[second_index]
 
         current_transitions = sum([objective_function(slides[first_index - 1], slides[first_index]), 
                                objective_function(slides[first_index], slides[first_index + 1]),
@@ -71,25 +70,14 @@ def hill(photos):
         if(temp_tansitions > current_transitions):
             #apply new configuration
             slides[first_index], slides[second_index] = slides[second_index], slides[first_index]
-            slides[first_index - 1].score = objective_function(slides[first_index - 1], slides[first_index])
-            slides[first_index].score = objective_function(slides[first_index], slides[first_index + 1])
-            slides[second_index - 1].score = objective_function(slides[second_index - 1], slides[second_index])
-            slides[second_index].score = objective_function(slides[second_index], slides[second_index + 1])
             #calculate new score
             best_score += temp_tansitions - current_transitions
-            local_maximum = 0
 
         
-       # first_index += 1
+        first_index += 1
         cycles -= 1
-        local_maximum += 1
-        if local_maximum > 10000:
-            print(first_index)
-            first_index = random.randint(0, length - 2)
-            print(first_index)
-            local_maximum = 0
-            print("jump")
         if cycles % 1000 == 0:
-            print(cycles, " left")
+            print("Cycles left: ", cycles)
             print(best_score)
-    print("best score: ", best_score)
+    print("Score: ", best_score)
+    return best_score

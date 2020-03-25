@@ -4,29 +4,27 @@ from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
 from objective import ObjectiveFunction
 
-from FEUP_IART_2020.simulated_annealing import simulated_annealing
-from FEUP_IART_2020.tabu_search import tabu_search
+from simulated_annealing import simulated_annealing
+from tabu_search import tabu_search
+from hill_climbing import hill
 
 
-def loadFile(*args):
+def loadFile():
     f = open(filename, 'r')
-
-    photos = []
-
+    global photos
     lineNumber = 0
     for line in f:
         if (lineNumber != 0):
             photos.append(Photo(lineNumber-1, line))
-
         lineNumber += 1
+   
 
-
+    
     #tabu_search(photos)
-    simulated_annealing(photos)
+   # simulated_annealing(photos)
 
     #geneticStartup(photos)
 
-    return photos
 
 
 
@@ -47,13 +45,13 @@ def solveRand(photos):
 
 
 def solveGreedy(*args):
-    for photo in photos:
-        print(photo)
+    
     return 0
 
 
 def solveHillClimbing(*args):
-    return 1
+    hill(args[0], args[1])
+    return 0
 
 def solveGeneticAlgorithm(*args):
     return 1
@@ -67,7 +65,7 @@ def fileLoaded(*args):
     ttk.Button(mainframe, text="Greedy Algorithm", command=solveGreedy).grid(column=2, row=9, sticky=W)
     ttk.Button(mainframe, text="Genetic Algorithm", command=solveGeneticAlgorithm).grid(column=3, row=9, sticky=W)
     ttk.Button(mainframe, text="Simulated Anneling", command=solveSimulatedAnneling).grid(column=4, row=9, sticky=W)
-    ttk.Button(mainframe, text="Hill Climbing", command=solveHillClimbing).grid(column=5, row=9, sticky=W)
+    ttk.Button(mainframe, text="Hill Climbing", command= lambda: solveHillClimbing(photos, 500000)).grid(column=5, row=9, sticky=W)
 
 
 root = Tk()
@@ -85,8 +83,8 @@ ttk.Label(mainframe, text=filename).grid(column=1, row=4, sticky=(W, E))
 
 
 photos = []
-photos.append(ttk.Button(mainframe, text="Load File", command=loadFile).grid(column=4, row=3, sticky=W))
-
+ttk.Button(mainframe, text="Load File", command= loadFile).grid(column=4, row=3, sticky=W)
+fileLoaded()
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
 root.mainloop()

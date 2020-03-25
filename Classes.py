@@ -13,6 +13,7 @@ class Slide:
               self.tags = photo.tags
               self.points = 0
               self.Horizontal = photo.Horizontal
+              self.taglength = len(photo.tags)
 
        def addVertical(self, photo):
               if photo.Horizontal:
