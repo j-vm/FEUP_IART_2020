@@ -1,4 +1,7 @@
 
+from FEUP_IART_2020.objective import *
+from FEUP_IART_2020.utils import *
+
 
 def tabu_search(photos):
     slides = generate_slides(photos)

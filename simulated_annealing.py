@@ -1,7 +1,8 @@
 import math
 import random
 
-
+from FEUP_IART_2020.objective import *
+from FEUP_IART_2020.utils import *
 
 
 def simulated_annealing(photos):

@@ -21,7 +21,7 @@ def solveRand(photos):
 
 
 
-def objective_function(slide1, slide2):
+def transition_score(slide1, slide2):
     #common tags
     common = len(set(slide1.tags).intersection(slide2.tags))
     # tags in photo1 but not in 2
@@ -44,7 +44,7 @@ def hill(photos, cycles):
     length = len(slides)
     #get the scores of first soluton
     for i in range(0, length -1):
-        slides[i].score = objective_function(slides[i], slides[i+1])
+        slides[i].score = transition_score(slides[i], slides[i+1])
         best_score += slides[i].score
     #searches for the optimal solution
     #
@@ -59,16 +59,16 @@ def hill(photos, cycles):
         temp_slide1 = slides[first_index]
         temp_slide2 = slides[second_index]
 
-        current_transitions = sum([objective_function(slides[first_index - 1], slides[first_index]), 
-                               objective_function(slides[first_index], slides[first_index + 1]),
-                               objective_function(slides[second_index - 1], slides[second_index]), 
-                               objective_function(slides[second_index], slides[second_index + 1])])
+        current_transitions = sum([transition_score(slides[first_index - 1], slides[first_index]), 
+                               transition_score(slides[first_index], slides[first_index + 1]),
+                               transition_score(slides[second_index - 1], slides[second_index]), 
+                               transition_score(slides[second_index], slides[second_index + 1])])
 
         #new transitions with slides swaped
-        temp_tansitions = sum([objective_function(slides[first_index - 1], slides[second_index]), 
-                               objective_function(slides[second_index], slides[first_index + 1]),
-                               objective_function(slides[second_index - 1], slides[first_index]), 
-                               objective_function(slides[first_index], slides[second_index + 1])])
+        temp_tansitions = sum([transition_score(slides[first_index - 1], slides[second_index]), 
+                               transition_score(slides[second_index], slides[first_index + 1]),
+                               transition_score(slides[second_index - 1], slides[first_index]), 
+                               transition_score(slides[first_index], slides[second_index + 1])])
 
         if(temp_tansitions > current_transitions):
             #apply new configuration
