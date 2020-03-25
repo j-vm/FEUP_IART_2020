@@ -4,8 +4,6 @@ from tkinter.filedialog import askopenfilename
 from Classes import Photo, Slide
 from objective import ObjectiveFunction
 
-
-
 from FEUP_IART_2020.simulated_annealing import simulated_annealing
 from FEUP_IART_2020.tabu_search import tabu_search
 
@@ -22,7 +20,11 @@ def loadFile(*args):
 
         lineNumber += 1
 
-    tabu_search(photos)
+
+    #tabu_search(photos)
+    simulated_annealing(photos)
+
+    #geneticStartup(photos)
 
     return photos
 
