@@ -7,7 +7,7 @@ from objective import ObjectiveFunction
 
 
 from FEUP_IART_2020.simulated_annealing import simulated_annealing
-
+from FEUP_IART_2020.tabu_search import tabu_search
 
 
 def loadFile(*args):
@@ -22,7 +22,7 @@ def loadFile(*args):
 
         lineNumber += 1
 
-    simulated_annealing(photos)
+    tabu_search(photos)
 
     return photos
 

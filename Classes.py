@@ -1,5 +1,4 @@
 class Photo:
-      
        def __init__(self, id, info):
               splitInfo = info.split()
               self.id = id
@@ -28,5 +27,15 @@ class Slide:
                      return str(self.photo1)
               else:
                      return str(self.photo1) + " " + str(self.photo2)
+
+       def getNrTags(self):
+              return len(self.tags)
+
+       def interest(self, other):
+              shared = len(self.tags.intersection(other.tags))
+              only_self = self.getNrTags() - shared
+              only_other = other.getNrTags() - shared
+
+              return min(shared, only_self, only_other)
 
 
