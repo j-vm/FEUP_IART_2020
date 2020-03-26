@@ -32,8 +32,9 @@ def transition_score(slide1, slide2):
 
 
 def hill(photos, cycles):
+    import time
     cycles_asked = cycles
-  #  start_time = time.process_time()
+    start_time = time.process_time()
     best_score = 0
     first_index = 0
     second_index = 0
@@ -85,8 +86,8 @@ def hill(photos, cycles):
     print("--------------------")
     print("Hill Climbing")
     print(" ")
-    print("Score: ", best_score)
-    print("With ", cycles_asked)
-  #  time = time.process_time() - start_time
-  #  print("In ", time, " seconds of processor time")
+    print("Score: ", best_score) 
+    print("With ", cycles_asked, " cycles")
+    time = time.process_time() - start_time
+    print("In %.3f seconds of processor time" % time)
     return best_score

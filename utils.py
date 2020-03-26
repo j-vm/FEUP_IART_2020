@@ -1,4 +1,4 @@
-from FEUP_IART_2020.Classes import *
+from Classes import *
 
 
 def generate_slides(photos):
