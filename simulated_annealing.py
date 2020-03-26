@@ -5,15 +5,18 @@ from objective import *
 from utils import *
 
 
-def simulated_annealing(photos):
+def simulated_annealing(photos, SA_temp, SA_min_temp, SA_cool_rate, SA_it_per_temp):
+    import time
+    start_time = time.process_time()
     s = generate_slides(photos) #generate slides, sorted by horizontal and then vertical
     solution = organize_slides(s)
     score = ObjectiveFunction(solution)
 
-    temp = 100
-    temp_min = 1
-    cooling_rate = 5
-    itPerTemp = 100
+    temp = SA_temp
+    initial_temp = temp
+    temp_min = SA_min_temp
+    cooling_rate = SA_cool_rate
+    itPerTemp = SA_it_per_temp
 
     while temp > temp_min:
         it = 0
@@ -32,10 +35,17 @@ def simulated_annealing(photos):
                     score = new_score
 
             it = it + 1
+            print(it, " iteractions of a total ", itPerTemp)
 
         temp = temp-cooling_rate
 
-    print(score)
+    print("--------------------")
+    print("Simulated Annealing")
+    print(" ")
+    print("Score: ", score) 
+    print("With ", initial_temp, " of temperature and ", cooling_rate, " of cooling rate")
+    time = time.process_time() - start_time
+    print("In %.3f seconds of processor time" % time)
     return new_solution
 
 
