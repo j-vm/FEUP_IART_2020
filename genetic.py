@@ -1,6 +1,7 @@
 import math
 import random
 import numpy as np
+import heapq
 from objective import ObjectiveFunction
 from Classes import *
 
@@ -8,7 +9,9 @@ from Classes import *
 
 #To Avoid repetition we will use:
 #For the crossover -> Ordered Crossover (OX1)
-#For the mutation -> Reverse Sequence Mutation (RSM).
+#https://www.researchgate.net/publication/2268568_On_Genetic_Crossover_Operators_for_Relative_Order_Preservation
+#For the mutation -> Reverse Sequence Mutation (RSM). (PSM and HPRM if we have time)
+#https://www.researchgate.net/publication/282732991_A_New_Mutation_Operator_for_Solving_an_NP-Complete_Problem_Travelling_Salesman_Problem
 
 def genInitialPop(arrayLen, nSol):
        gen1 = []
@@ -20,18 +23,22 @@ def genInitialPop(arrayLen, nSol):
 
 def geneticStartup(photos):
        nGen = int(input("How many generations?"))
-       nSol = int(input("How many solutions pre generation?"))
+       nSol = int(input("How many solutions per generation (will be rounded up to a pair)?"))
+       if nSol % 2:
+              nSol += 1
+       poolSize = int(input("How many individuals qualify for reproduction?"))
        mutProb = float(input("What is the mutation probability from 0 to 1?"))
-
+       fitness = []
        for i in range(0,nGen):
-              if i is 0:
+              if i == 0:
                      population = genInitialPop(len(photos), nSol)
               else:
-                     population = reproduce(population, fitness)
+                     population = reproduce(population, fitness, poolSize)
                      population = mutate(population, mutProb)
               fitness = calculateFitness(population, photos)
               print("(" + str(i) +"," + str(max(fitness))+")")
 
+       return max(fitness)
 
 def calculateFitness(population, photos):
     fitness = []           
@@ -45,36 +52,86 @@ def calculateFitness(population, photos):
         else:
             slides.append(Slide(photos[photo]))
        fitness.append(ObjectiveFunction(slides))
-
+       
     return fitness
 
 
-def reproduce(population, fitness):
+def reproduce(population, fitness, poolSize):
        newPopulation = []
        minFitness = min(fitness) 
-       probability = [i - (minFitness - 1) for i in fitness] #Avoiding getting stuck in an "all soutions have fitness = 0" situation
-       #also subtracting the min fitness to avoid all probabilities being very similar when solution values are high and close 
-       probability = [float(i)/sum(probability) for i in probability] # Normalizing porbability for random.choice
-       print(probability)
+       probability = [i - (minFitness) for i in fitness]
+       #Subtracting the min fitness to avoid all probabilities being very similar when solution values are high and close
+       
+       poolIndices, poolProbability = selectPool(probability, poolSize)
+       
+       if sum(poolProbability) == 0:
+              poolProbability = [1/len(poolProbability) for i in poolProbability] #Avoiding getting stuck in an "all soutions have fitness = 0" situation
+       
+       else:
+              poolProbability = [float(i)/sum(poolProbability) for i in poolProbability] # Normalizing porbability for random.choice
+       
        solutionLength = len(population[0])
-       for i in range(0, len(population)):
+       for i in range(0, len(population)//2):
               child = []
-              parents = np.random.choice(len(population), 2, replace=False, p=probability)
-              parent1 = population[parents[0]]
-              parent2 = population[parents[1]]
-              crossoverPoint = np.random.choice(solutionLength)
-              for i in range(crossoverPoint, crossoverPoint + int(solutionLength//2)):
-                     if i < solutionLength:
-                            child.append(parent1[i])
-                     else:
-                            child.append(parent1[i-solutionLength])
-              for photo in parent2:
-                     if photo not in child:
-                            child.append(photo)
-              newPopulation.append(child)
+
+              parents = np.random.choice(poolIndices, 2, replace=False, p=poolProbability)
+
+              child1, child2 = OX1(population[parents[0]],population[parents[1]])
+              
+              newPopulation.append(child1)
+              newPopulation.append(child2)
+
        return newPopulation
 
        
 def mutate(population, mutProb):
+       for individual in population:
+              if random.uniform(0, 1) < mutProb:
+                     mutationPoints = np.random.choice(len(individual), 2, replace=False)
+                     print(individual)
+                     individual[mutationPoints[0]], individual[mutationPoints[1]] =  individual[mutationPoints[1]], individual[mutationPoints[0]]
 
-       return population
+       return population    
+       
+
+
+def selectPool(probability, poolSize):
+
+       if  0 >= poolSize >= len(probability):
+              return list(range(0, len(probability))), probability
+       else:
+              poolIndices = heapq.nlargest(poolSize, range(len(probability)), probability.__getitem__)
+              poolProbability = [probability[i] for i in poolIndices]
+              return poolIndices, poolProbability
+
+
+
+def OX1(parent1, parent2):
+
+       crossoverPoints = np.random.choice(len(parent1), 2, replace=False)
+
+       crossoverPoint1 = min(crossoverPoints)
+       crossoverPoint2 = max(crossoverPoints)
+
+       child1 = OX1aux(parent1, parent2, crossoverPoint1, crossoverPoint2)
+       child2 = OX1aux(parent2, parent1, crossoverPoint1, crossoverPoint2)
+
+       return child1, child2
+
+def OX1aux(parent1, parent2, crossoverPoint1, crossoverPoint2):
+
+       lenght = len(parent1)
+       child = [None]*lenght
+       index = crossoverPoint2
+       for i in range(crossoverPoint1, crossoverPoint2):
+
+              child[i] = parent1[i]
+       
+       for gene in parent2:
+              if index >= lenght: 
+                     index = 0
+              if gene not in child:
+                     child[index] = gene
+                     index += 1
+
+       return child

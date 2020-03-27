@@ -21,7 +21,7 @@ def loadFile():
         if (lineNumber != 0):
             photos.append(Photo(lineNumber-1, line))
         lineNumber += 1
-   
+    geneticStartup(photos)
 
 def solve_rand(photos):
     score = solveRand(photos)
