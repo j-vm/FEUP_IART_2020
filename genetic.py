@@ -97,7 +97,7 @@ def mutate(population, mutProb):
 
 def selectPool(probability, poolSize):
 
-       if  0 >= poolSize >= len(probability):
+       if  2 >= poolSize >= len(probability):
               return list(range(0, len(probability))), probability
        else:
               poolIndices = heapq.nlargest(poolSize, range(len(probability)), probability.__getitem__)
