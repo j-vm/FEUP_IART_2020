@@ -31,7 +31,7 @@ def transition_score(slide1, slide2):
     return min(common, uncommon_slide1, uncommon_slide2)
 
 
-def hill(photos, cycles):
+def hill(photos, cycles, local_size):
     import time
     cycles_asked = cycles
     start_time = time.process_time()
@@ -43,6 +43,8 @@ def hill(photos, cycles):
     new_slides = sorted(slides, key=lambda slide: slide.taglength, reverse=True)
     slides = new_slides
     length = len(slides)
+    if length <= local_size:
+        print("Caution, local search size is equal or greater than the number of slides")
     #get the scores of first soluton
     for i in range(0, length -1):
         slides[i].score = transition_score(slides[i], slides[i+1])
@@ -51,7 +53,7 @@ def hill(photos, cycles):
     #
     while cycles > 0:
        # first_index = random.randint(0, length - 2)
-        second_index = random.randint(first_index -50, first_index + 50)
+        second_index = random.randint(first_index -local_size, first_index + local_size)
         if first_index >= length - 2:
             first_index = 1
         if second_index > (length - 2) or second_index < 0:
@@ -90,4 +92,4 @@ def hill(photos, cycles):
     print("With ", cycles_asked, " cycles")
     time = time.process_time() - start_time
     print("In %.3f seconds of processor time" % time)
-    return best_score
+    return best_score, time

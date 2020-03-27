@@ -5,6 +5,8 @@ import time
 from Classes import Photo, Slide
 from objective import ObjectiveFunction
 import ntpath
+from tkinter import messagebox
+
 
 from simulated_annealing import simulated_annealing
 from tabu_search import tabu_search
@@ -28,7 +30,9 @@ def solve_rand(photos):
 
 
 def solveHillClimbing(*args):
-    hill(args[0], args[1])
+    score = hill(args[0], args[1], args[2])
+    msg = "Hill Climbing\nScore: " + str(score[0]) + "\nWith " + str(args[1]) + " cycles\nIn " + str(round(score[1], 4)) + " seconds"
+    messagebox.showinfo("Results", msg)
     return 0
 
 
@@ -49,9 +53,10 @@ def fileLoaded(*args):
   #  ttk.Button(mainframe, text="Genetic Algorithm", command=lambda: solveGeneticAlgorithm(photos)).grid(column=1, row=14, sticky=W)
     ttk.Button(mainframe, text="Simulated Anneling", command= lambda: solveSimulatedAnneling(photos, SA_temp.get(), SA_min_temp.get(), SA_cool_rate.get(), SA_it_per_temp.get())).grid(column=1, row=16, sticky=W)
     ttk.Button(mainframe, text="Tabu Search", command= lambda: solveTabuSearch(photos)).grid(column=1, row=18, sticky=W)
-    ttk.Button(mainframe, text="Hill Climbing", command= lambda: solveHillClimbing(photos, hill_cycles.get())).grid(column=1, row=20, sticky=W)
+    ttk.Button(mainframe, text="Hill Climbing", command= lambda: solveHillClimbing(photos, hill_cycles.get(), hill_local_size.get())).grid(column=1, row=20, sticky=W)
    
     ttk.Label(mainframe, text="Cycles: ").grid(column=2, row=20,  sticky=E)
+    ttk.Label(mainframe, text="Search Size: ").grid(column=4, row=20,  sticky=E)
     ttk.Label(mainframe, text="Temperature: ").grid(column=2, row=16,  sticky=E)
     ttk.Label(mainframe, text="Min Temperature: ").grid(column=4, row=16,  sticky=E)
     ttk.Label(mainframe, text="Cooling Rate: ").grid(column=6, row=16,  sticky=E)
@@ -61,7 +66,12 @@ def fileLoaded(*args):
     hill_entry = ttk.Entry(mainframe, textvariable=hill_cycles, width=9)
     hill_entry.insert(0, '5000000')
     hill_entry.grid(column=3, row=20,  sticky=W)
+
+    hill_local_entry = ttk.Entry(mainframe, textvariable=hill_local_size, width=4)
+    hill_local_entry.insert(0, '50')
+    hill_local_entry.grid(column=5, row=20,  sticky=W)
     #------------------------------------
+
     #-----------------Simulated Annealing variables---------------------
     SA_temperature_entry = ttk.Entry(mainframe, textvariable=SA_temp, width=5)
     SA_temperature_entry.insert(0, '100')
@@ -85,6 +95,7 @@ root = Tk()
 
 #input variables
 hill_cycles = IntVar()
+hill_local_size = IntVar()
 SA_temp = IntVar()
 SA_min_temp = IntVar()
 SA_cool_rate = IntVar()
