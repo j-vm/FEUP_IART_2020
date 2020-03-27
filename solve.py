@@ -23,7 +23,7 @@ def loadFile():
         if (lineNumber != 0):
             photos.append(Photo(lineNumber-1, line))
         lineNumber += 1
-   
+
 
 def solve_rand(photos):
     score = solveRand(photos)
@@ -41,10 +41,12 @@ def solveHillClimbing(*args):
 
 
 def solveTabuSearch(*args):
+    tabu_search(photos)
     return 0
 
 def solveSimulatedAnneling(*args):
     simulated_annealing(args[0], args[1], args[2], args[3], args[4])
+    return 0
 
 
 def fileLoaded(*args):
@@ -86,7 +88,7 @@ def fileLoaded(*args):
     SA_cool_rate_entry.grid(column=7, row=16,  sticky=W)
 
     SA_iter_p_Temp_entry = ttk.Entry(mainframe, textvariable=SA_it_per_temp, width=5)
-    SA_iter_p_Temp_entry.insert(0, '100')
+    SA_iter_p_Temp_entry.insert(0, '10')
     SA_iter_p_Temp_entry.grid(column=9, row=16,  sticky=W)
     #-------------------------------------------------------------------------
 
@@ -112,7 +114,6 @@ root.rowconfigure(0, weight=1)
 
 ttk.Label(mainframe, text="Input file:").grid(column=1, row=3, sticky=(W, E))
 ttk.Label(mainframe, text=ntpath.basename(filename)).grid(column=1, row=4, sticky=(W, E))
-
 
 photos = []
 ttk.Button(mainframe, text="Load File", command= loadFile).grid(column=1, row=5, sticky=W)
