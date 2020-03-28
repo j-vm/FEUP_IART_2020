@@ -9,14 +9,12 @@ def solveRand(photos):
     
     slides = []
     for photo in photos:
-
         if len(slides)==0:
             slides.append(Slide(photo))  
         elif not slides[-1].Horizontal and not photo.Horizontal:
             slides[-1].addVertical(photo)
         else:
             slides.append(Slide(photo))
-
     return slides
 
 
@@ -50,13 +48,12 @@ def hill(photos, cycles, local_size):
         slides[i].score = transition_score(slides[i], slides[i+1])
         best_score += slides[i].score
     #searches for the optimal solution
-    #
     while cycles > 0:
-       # first_index = random.randint(0, length - 2)
+        first_index = random.randint(0, length - 2)
         second_index = random.randint(first_index -local_size, first_index + local_size)
         if first_index >= length - 2:
             first_index = 1
-        if second_index > (length - 2) or second_index < 0:
+        if second_index > (length - 2) or second_index < 0 or first_index == second_index:
             continue
 
         temp_slide1 = slides[first_index]
@@ -79,8 +76,7 @@ def hill(photos, cycles, local_size):
             #calculate new score
             best_score += temp_tansitions - current_transitions
 
-        
-        first_index += 1
+        #first_index += 1
         cycles -= 1
         if cycles % 1000 == 0:
             print("Cycles left: ", cycles)

@@ -21,13 +21,15 @@ def genInitialPop(arrayLen, nSol):
               gen1.append(individual)
        return gen1
 
-def geneticStartup(photos):
-       nGen = int(input("How many generations?"))
-       nSol = int(input("How many solutions per generation (will be rounded up to a pair)?"))
+def geneticStartup(photos, generations, solutions, reproduction_size, mutation_probability):
+       import time
+       start_time = time.process_time()
+       nGen = generations
+       nSol = solutions
        if nSol % 2:
               nSol += 1
-       poolSize = int(input("How many individuals qualify for reproduction?"))
-       mutProb = float(input("What is the mutation probability from 0 to 1?"))
+       poolSize = reproduction_size
+       mutProb = mutation_probability
        fitness = []
        for i in range(0,nGen):
               if i == 0:
@@ -38,7 +40,13 @@ def geneticStartup(photos):
               fitness = calculateFitness(population, photos)
               print("(" + str(i) +"," + str(max(fitness))+")")
 
-       return max(fitness)
+       print("--------------------")
+       print("Genetic Algorithm")
+       print(" ")
+       print("Score: ", max(fitness))
+       time = time.process_time() - start_time
+       print("In %.3f seconds of processor time" % time)
+       return max(fitness), time
 
 def calculateFitness(population, photos):
     fitness = []           
