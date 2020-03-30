@@ -1,0 +1,10 @@
+Generation: 0 Best Individual: 1359
+Generation: 1 Best Individual: 975
+Generation: 2 Best Individual: 1012
+Generation: 3 Best Individual: 1021
+Generation: 4 Best Individual: 1040
+Generation: 5 Best Individual: 1062
+Generation: 6 Best Individual: 1073
+Generation: 7 Best Individual: 1082
+Generation: 8 Best Individual: 1092
+Generation: 9 Best Individual: 1098
