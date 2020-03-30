@@ -110,7 +110,7 @@ def fileLoaded(*args):
     Gen_Solution_per_gen_entry.grid(column=5, row=14,  sticky=W)
 
     Gen_crossover_entry = ttk.Entry(mainframe, textvariable=Gen_crossover, width=4)
-    Gen_crossover.set('50')
+    Gen_crossover.set('5')
     Gen_crossover_entry.grid(column=7, row=14,  sticky=W)
 
     Gen_mutation_entry = ttk.Entry(mainframe, textvariable=Gen_mutation, width=4)
