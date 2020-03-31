@@ -31,6 +31,7 @@ def geneticStartup(photos, generations, solutions, reproduction_size, mutation_p
        poolSize = reproduction_size
        mutProb = mutation_probability
        fitness = []
+       f = open("output/GAtrace.txt", "w+")
        for i in range(0,nGen):
               if i == 0:
                      population = genInitialPop(len(photos), nSol)
@@ -38,8 +39,9 @@ def geneticStartup(photos, generations, solutions, reproduction_size, mutation_p
                      population = reproduce(population, fitness, poolSize)
                      population = mutate(population, mutProb)
               fitness = calculateFitness(population, photos)
-              print("(" + str(i) +"," + str(max(fitness))+")")
+              f.write("Generation: " + str(i) +" Best Individual: " + str(max(fitness))+"\n")
 
+       f.close()
        print("--------------------")
        print("Genetic Algorithm")
        print(" ")
@@ -78,9 +80,7 @@ def reproduce(population, fitness, poolSize):
        else:
               poolProbability = [float(i)/sum(poolProbability) for i in poolProbability] # Normalizing porbability for random.choice
        
-       solutionLength = len(population[0])
        for i in range(0, len(population)//2):
-              child = []
 
               parents = np.random.choice(poolIndices, 2, replace=False, p=poolProbability)
 
@@ -96,7 +96,6 @@ def mutate(population, mutProb):
        for individual in population:
               if random.uniform(0, 1) < mutProb:
                      mutationPoints = np.random.choice(len(individual), 2, replace=False)
-                     print(individual)
                      individual[mutationPoints[0]], individual[mutationPoints[1]] =  individual[mutationPoints[1]], individual[mutationPoints[0]]
 
        return population    
