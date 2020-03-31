@@ -1,8 +1,0 @@
-8
-H 3 cat beach sun
-V 2 selfie smile
-V 2 garden selfie
-H 2 garden cat
-V 2 selfie house
-V 2 house selfie
-H 2 garden cat
