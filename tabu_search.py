@@ -2,7 +2,6 @@
 from objective import *
 from utils import *
 
-
 def tabu_search(photos):
     import time
     start_time = time.process_time()
@@ -29,7 +28,6 @@ def tabu_search(photos):
             solution.append(bestMatch)
             current = bestMatch
 
-        print(ObjectiveFunction(solution))
         it = it + 1
 
     solution = solution + last
@@ -42,7 +40,7 @@ def tabu_search(photos):
     print("In %.3f seconds of processor time" % time)
     return 0
 
-
+#Seleciona o slide que maximiza a transicao entre o slide atual e os possiveis candidatos. Retorna o slide escolhido
 def selectSolution(comparable, neighborhood):
     maxPoints = 0
     selected = -1
@@ -56,7 +54,7 @@ def selectSolution(comparable, neighborhood):
 
     return selected
 
-
+#Retorna uma lista dos slides com tags em comum com o slide atual.
 def getCandidates(slide, slides, cantMatch, haveNoMatch):
     candidates = []
 

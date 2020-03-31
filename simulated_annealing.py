@@ -85,7 +85,6 @@ def addOperator(slides):
         score = new_score
         i = i-1
 
-    #print(new_score, s.tags, copy[new_i].tags, new_s1.tags)
     swapPositions(copy, new_i, idx+1)
     return copy
 

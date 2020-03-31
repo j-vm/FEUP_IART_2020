@@ -74,7 +74,7 @@ def fileLoaded(*args):
 
     #--------hil_climbing variables-------
     hill_entry = ttk.Entry(mainframe, textvariable=hill_cycles, width=9)
-    hill_cycles.set('500000')
+    hill_cycles.set('50000')
     hill_entry.grid(column=3, row=20,  sticky=W)
 
     hill_local_entry = ttk.Entry(mainframe, textvariable=hill_local_size, width=4)

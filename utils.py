@@ -1,11 +1,9 @@
 from Classes import *
 
-
+#Retorna array de slides com slides horizontais e verticais.
 def generate_slides(photos):
     slides = []
     vertical_photos = []
-
-    #print("nr photo:" + str(len(photos)))
 
     for photo in photos:
         if photo.Horizontal:
@@ -22,7 +20,7 @@ def generate_slides(photos):
 
     return slides
 
-
+#Emparelha as fotos verticais com menor numero de tags com as fotos verticais com maior numero de tags. Retorna lista de slides.
 def pair_vPhotosFrontBack(vPhotos):
     slides = []
     length = len(vPhotos)
@@ -52,7 +50,7 @@ def pair_vPhotosFrontBack(vPhotos):
                slides.append(s1)
     return slides
 
-
+#Ordena as fotografias verticais pelo numero de tags
 def sort_vertical_photos(vPhotos):
     v_sorted = sorted(vPhotos, key=lambda x: x.nr_tags, reverse=False) #ordenar por ordem crescente de nr de tags
     return v_sorted
