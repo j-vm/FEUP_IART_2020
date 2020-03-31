@@ -47,7 +47,7 @@ def solveTabuSearch(*args):
     return 0
 
 def solveSimulatedAnneling(*args):
-    simulated_annealing(args[0], args[1], args[2], args[3], args[4], args[5])
+    simulated_annealing(args[0], args[1], args[2], args[3], args[4])
     return 0
 
 
@@ -74,7 +74,7 @@ def fileLoaded(*args):
 
     #--------hil_climbing variables-------
     hill_entry = ttk.Entry(mainframe, textvariable=hill_cycles, width=9)
-    hill_cycles.set('500000')
+    hill_cycles.set('50000')
     hill_entry.grid(column=3, row=20,  sticky=W)
 
     hill_local_entry = ttk.Entry(mainframe, textvariable=hill_local_size, width=4)
