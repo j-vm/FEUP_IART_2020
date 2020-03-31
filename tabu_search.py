@@ -38,7 +38,7 @@ def tabu_search(photos):
     print("Score: ", score)
     time = time.process_time() - start_time
     print("In %.3f seconds of processor time" % time)
-    return 0
+    return solution
 
 #Seleciona o slide que maximiza a transicao entre o slide atual e os possiveis candidatos. Retorna o slide escolhido
 def selectSolution(comparable, neighborhood):

@@ -1,4 +1,6 @@
 from Classes import *
+from datetime import datetime
+
 
 #Retorna array de slides com slides horizontais e verticais.
 def generate_slides(photos):
@@ -55,3 +57,12 @@ def sort_vertical_photos(vPhotos):
     v_sorted = sorted(vPhotos, key=lambda x: x.nr_tags, reverse=False) #ordenar por ordem crescente de nr de tags
     return v_sorted
 
+
+def outputSolution(Slides):
+    now = datetime.now()
+    dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+    f = open("output/solution" + dt_string +".txt", "w+")
+    for Slide in Slides:
+        f.write(Slide.generateOutput() +"\n")
+    f.close()
+    return

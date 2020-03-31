@@ -31,6 +31,7 @@ def geneticStartup(photos, generations, solutions, reproduction_size, mutation_p
        poolSize = reproduction_size
        mutProb = mutation_probability
        fitness = []
+       trace = None
        f = open("output/GAtrace.txt", "w+")
        for i in range(0,nGen):
               if i == 0:
@@ -39,8 +40,9 @@ def geneticStartup(photos, generations, solutions, reproduction_size, mutation_p
                      population = reproduce(population, fitness, poolSize)
                      population = mutate(population, mutProb)
               fitness = calculateFitness(population, photos)
-              f.write("Generation: " + str(i) +" Best Individual: " + str(max(fitness))+"\n")
-
+              trace = "Generation: " + str(i) +" Best Individual: " + str(max(fitness))+"\n"
+              f.write(trace)
+              print(trace)
        f.close()
        print("--------------------")
        print("Genetic Algorithm")
@@ -48,7 +50,7 @@ def geneticStartup(photos, generations, solutions, reproduction_size, mutation_p
        print("Score: ", max(fitness))
        time = time.process_time() - start_time
        print("In %.3f seconds of processor time" % time)
-       return max(fitness), time
+       return SlidesFromIndividual(photos, population[fitness.index(max(fitness))])
 
 def calculateFitness(population, photos):
     fitness = []           
@@ -142,3 +144,16 @@ def OX1aux(parent1, parent2, crossoverPoint1, crossoverPoint2):
                      index += 1
 
        return child
+
+
+def SlidesFromIndividual(photos, individual):
+       slides = []
+       for photo in individual:
+              if len(slides)==0:
+                     slides.append(Slide(photos[photo]))  
+              elif not slides[-1].Horizontal and not photos[photo].Horizontal:
+                     slides[-1].addVertical(photos[photo])
+              else:
+                     slides.append(Slide(photos[photo]))
+       
+       return slides
