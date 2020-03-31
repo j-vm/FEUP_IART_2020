@@ -18,13 +18,13 @@ def simulated_annealing(photos, SA_temp, SA_min_temp, SA_cool_rate, SA_it_per_te
     cooling_rate = SA_cool_rate
     itPerTemp = SA_it_per_temp
 
-    print("Progress: ")
+
     while temp > temp_min:
         it = 0
 
-        print(".")
         while it < itPerTemp:
-            new_solution = addOperator(solution)
+            print(it, ">> ", score)
+            new_solution = addRandomOperator(solution)
             new_score = ObjectiveFunction(new_solution) #para dar positivo
             
             if new_score >= score: #so > diminui mt o nr de pontos,

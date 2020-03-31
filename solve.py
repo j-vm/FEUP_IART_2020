@@ -47,7 +47,7 @@ def solveTabuSearch(*args):
     return 0
 
 def solveSimulatedAnneling(*args):
-    simulated_annealing(args[0], args[1], args[2], args[3], args[4], args[5])
+    simulated_annealing(args[0], args[1], args[2], args[3], args[4])
     return 0
 
 
