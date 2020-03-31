@@ -23,11 +23,13 @@ def tabu_search(photos):
 
         if bestMatch == -1: #current nao tem tags em comum com nada, fica para ultimo
             last.append(current)
+            print(len(last))
 
         else: #update tabu memory and make the move
             solution.append(bestMatch)
             current = bestMatch
 
+        print(ObjectiveFunction(solution))
         it = it + 1
 
     solution = solution + last
@@ -59,10 +61,10 @@ def getCandidates(slide, slides, cantMatch, haveNoMatch):
     candidates = []
 
     canSearch = list(set(slides) ^ set(cantMatch) ^ set(haveNoMatch))
-    #B = canSearch[:len(canSearch) // 2]
 
     for s in canSearch:
         if len(slide.tags.intersection(s.tags)) > 0: #slides com tags em comum
-            candidates.append(s)
+            if slides != s:
+                candidates.append(s)
 
     return candidates

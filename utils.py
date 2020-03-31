@@ -17,13 +17,8 @@ def generate_slides(photos):
 
     vertical_slides = pair_vPhotosFrontBack(sortedvPhotos)
 
-    #print("nr Vslides:" + str(len(vertical_slides)))
-
-
     for vs in vertical_slides:
         slides.append(vs)
-
-    #print("nr slides:" + str(len(slides)))
 
     return slides
 
@@ -60,6 +55,5 @@ def pair_vPhotosFrontBack(vPhotos):
 
 def sort_vertical_photos(vPhotos):
     v_sorted = sorted(vPhotos, key=lambda x: x.nr_tags, reverse=False) #ordenar por ordem crescente de nr de tags
-
     return v_sorted
 
