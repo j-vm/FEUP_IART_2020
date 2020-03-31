@@ -1,5 +1,5 @@
 from Classes import *
-
+from datetime import datetime
 
 def generate_slides(photos):
     slides = []
@@ -63,3 +63,13 @@ def sort_vertical_photos(vPhotos):
 
     return v_sorted
 
+
+
+def outputSolution(Slides):
+    now = datetime.now()
+    dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+    f = open("output/solution" + dt_string +".txt", "w+")
+    for Slide in Slides:
+        f.write(Slide.generateOutput() +"\n")
+    f.close()
+    return

@@ -13,7 +13,7 @@ from tabu_search import tabu_search
 from hill_climbing import hill
 from solveRand import solveRand
 from genetic_algorithm import geneticStartup
-
+from utils import outputSolution
 
 def loadFile():
     f = open(filename, 'r')
@@ -30,24 +30,21 @@ def solve_rand(photos):
 
 
 def solveHillClimbing(*args):
-    score = hill(args[0], args[1], args[2])
-    msg = "Hill Climbing\nScore: " + str(score[0]) + "\nWith " + str(args[1]) + " cycles\nIn " + str(round(score[1], 4)) + " seconds"
-    messagebox.showinfo("Results", msg)
+    outputSolution(hill(args[0], args[1], args[2]))
     return 0
 
 
 def solveGeneticAlgorithm(*args):
-    score = geneticStartup(args[0], args[1], args[2], args[3], args[4])
-    msg = "Genetic Algorithm\nScore: " + str(score[0]) + "\nIn " + str(round(score[1], 4)) + " seconds"
+    outputSolution(geneticStartup(args[0], args[1], args[2], args[3], args[4]))
     return 0
 
 
 def solveTabuSearch(*args):
-    tabu_search(photos)
+    outputSolution(tabu_search(photos))
     return 0
 
 def solveSimulatedAnneling(*args):
-    simulated_annealing(args[0], args[1], args[2], args[3], args[4], args[5])
+    outputSolution(simulated_annealing(args[0], args[1], args[2], args[3], args[4]))
     return 0
 
 

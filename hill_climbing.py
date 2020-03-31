@@ -47,6 +47,8 @@ def hill(photos, cycles, local_size):
     for i in range(0, length -1):
         slides[i].score = transition_score(slides[i], slides[i+1])
         best_score += slides[i].score
+    
+    f = open("output/HCtrace.txt", "w+")
     #searches for the optimal solution
     while cycles > 0:
         first_index = random.randint(0, length - 2)
@@ -78,9 +80,13 @@ def hill(photos, cycles, local_size):
 
         #first_index += 1
         cycles -= 1
+        if cycles % 100 == 0:
+            f.write("Cycles done: " + str(cycles_asked - cycles) + " Best solution: " + str(best_score) +"\n" )
         if cycles % 1000 == 0:
             print("Cycles left: ", cycles)
             print(best_score)
+        
+    f.close()
     print("--------------------")
     print("Hill Climbing")
     print(" ")
@@ -88,4 +94,4 @@ def hill(photos, cycles, local_size):
     print("With ", cycles_asked, " cycles")
     time = time.process_time() - start_time
     print("In %.3f seconds of processor time" % time)
-    return best_score, time
+    return slides
