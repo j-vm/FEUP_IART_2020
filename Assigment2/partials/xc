@@ -1,0 +1,12 @@
+X_train_B, X_test_B, y_train_B, y_test_B = train_test_split(X_B, y_B, 
+                                                    test_size=0.3, 
+                                                    random_state=42, 
+                                                    stratify=y)
+scaler = preprocessing.StandardScaler().fit(X_train_B)
+X_train_scaled_B = scaler.transform(X_train_B)
+X_test_scaled_B = scaler.transform(X_test_B)
+
+knnBalanced = KNeighborsClassifier(n_neighbors = 21)
+knnBalanced.fit(X_train_B,y_train_B)
+CM_B = plot_confusion_matrix(knnBalanced,X_test_scaled_B, y_test_B, cmap=plt.cm.Blues)
+CM_B
